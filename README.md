@@ -1,38 +1,35 @@
-# 4-Letter Wordle Discord Activity - Inline JS Version
+# 4-Letter Wordle Discord Activity - Webhook Results
 
-This version puts the game script directly inside `client/index.html` to avoid Discord Activity proxy/path issues.
+This version posts result messages and a daily recap to a Discord channel webhook.
 
-## Railway settings
-
-Build Command:
+Railway settings:
 
 ```text
-npm install
+Build Command: npm install
+Start Command: npm start
 ```
 
-Start Command:
-
-```text
-npm start
-```
-
-## Variables
+Railway variables:
 
 ```text
 VITE_DISCORD_CLIENT_ID=your_discord_application_client_id
 WORDLE_DAILY_SEED=some-long-private-random-string
+DISCORD_WEBHOOK_URL=your_discord_channel_webhook_url
+RECAP_UTC_HOUR=23
+RECAP_UTC_MINUTE=55
 ```
 
-## Activity URL Mapping
-
-Prefix:
+To get a webhook:
 
 ```text
-/
+Discord channel settings → Integrations → Webhooks → New Webhook → Copy Webhook URL
 ```
 
-Target:
+Activity URL mapping:
 
 ```text
-https://your-app.up.railway.app
+Prefix: /
+Target: https://your-app.up.railway.app
 ```
+
+Results post automatically when a user wins, loses, or reveals. Use `Post Recap` to test the daily recap manually.
