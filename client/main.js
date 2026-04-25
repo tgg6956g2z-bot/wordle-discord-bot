@@ -1,4 +1,4 @@
-import { DiscordSDK } from "https://cdn.jsdelivr.net/npm/@discord/embedded-app-sdk@2.4.1/+esm";
+// SDK disabled for initial render test.
 
 const MAX_GUESSES = 6;
 const WORD_LENGTH = 4;
