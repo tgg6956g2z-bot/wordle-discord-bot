@@ -1,50 +1,38 @@
-# 4-Letter Wordle Discord Activity - No Build Version
+# 4-Letter Wordle Discord Activity - Inline JS Version
 
-This version avoids Vite and has no build step.
-
-## Files
-
-```text
-package.json
-server.js
-.env.example
-client/
-  index.html
-  main.js
-  style.css
-```
+This version puts the game script directly inside `client/index.html` to avoid Discord Activity proxy/path issues.
 
 ## Railway settings
 
-Use these commands:
+Build Command:
 
 ```text
-Build Command: npm install
-Start Command: npm start
+npm install
 ```
 
-Do not use `npm run build`.
+Start Command:
 
-## Railway variables
+```text
+npm start
+```
+
+## Variables
 
 ```text
 VITE_DISCORD_CLIENT_ID=your_discord_application_client_id
 WORDLE_DAILY_SEED=some-long-private-random-string
 ```
 
-## Local test
+## Activity URL Mapping
 
-```bash
-npm install
-npm start
-```
-
-Open:
+Prefix:
 
 ```text
-http://localhost:3000
+/
 ```
 
-## Discord Activity
+Target:
 
-Use your Railway HTTPS domain as the Activity URL in the Discord Developer Portal.
+```text
+https://your-app.up.railway.app
+```

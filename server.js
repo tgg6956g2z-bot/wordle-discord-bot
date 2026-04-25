@@ -22,6 +22,11 @@ const WORD_SET = new Set(WORDS);
 
 app.use(express.json());
 
+app.use((_req, res, next) => {
+  res.setHeader("Cache-Control", "no-store");
+  next();
+});
+
 function utcDateString() {
   return new Date().toISOString().slice(0, 10);
 }

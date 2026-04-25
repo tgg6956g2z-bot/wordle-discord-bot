@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 :root {
   color-scheme: dark;
@@ -82,24 +80,10 @@ main {
   border-radius: 6px;
 }
 
-.tile.filled {
-  border-color: #565758;
-}
-
-.tile.correct {
-  background: #538d4e;
-  border-color: #538d4e;
-}
-
-.tile.present {
-  background: #b59f3b;
-  border-color: #b59f3b;
-}
-
-.tile.absent {
-  background: #3a3a3c;
-  border-color: #3a3a3c;
-}
+.tile.filled { border-color: #565758; }
+.tile.correct { background: #538d4e; border-color: #538d4e; }
+.tile.present { background: #b59f3b; border-color: #b59f3b; }
+.tile.absent { background: #3a3a3c; border-color: #3a3a3c; }
 
 .message {
   width: 100%;
@@ -152,17 +136,9 @@ button:disabled {
   font-size: 12px;
 }
 
-button.correct {
-  background: #538d4e;
-}
-
-button.present {
-  background: #b59f3b;
-}
-
-button.absent {
-  background: #3a3a3c;
-}
+button.correct { background: #538d4e; }
+button.present { background: #b59f3b; }
+button.absent { background: #3a3a3c; }
 
 .footer-actions {
   display: flex;
@@ -172,34 +148,17 @@ button.absent {
   margin: 16px 0 4px;
 }
 
-.action-button,
-.small-button {
+.action-button, .small-button {
   padding: 10px 14px;
   font-size: 14px;
 }
 
-.danger {
-  background: #a63d40;
-}
+.danger { background: #a63d40; }
 
 @media (max-width: 390px) {
-  #app {
-    padding: 12px;
-  }
-
-  .board {
-    gap: 6px;
-  }
-
-  .row {
-    gap: 6px;
-  }
-
-  .key-row {
-    gap: 4px;
-  }
-
-  .key {
-    font-size: 13px;
-  }
+  #app { padding: 12px; }
+  .board { gap: 6px; }
+  .row { gap: 6px; }
+  .key-row { gap: 4px; }
+  .key { font-size: 13px; }
 }
