@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+.env
+wordle_gui_stats.json
