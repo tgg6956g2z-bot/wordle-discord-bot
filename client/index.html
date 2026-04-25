@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4-Letter Wordle Activity</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <div>
+          <h1>WORDLE</h1>
+          <p id="subtitle">4-letter daily Discord Activity</p>
+        </div>
+        <button id="newGameButton" class="small-button">Reset</button>
+      </header>
+
+      <main>
+        <section id="board" class="board" aria-label="Wordle board"></section>
+        <p id="message" class="message"></p>
+        <section id="keyboard" class="keyboard" aria-label="Keyboard"></section>
+
+        <section class="footer-actions">
+          <button id="shareButton" class="action-button">Copy Result</button>
+          <button id="revealButton" class="action-button danger">Reveal</button>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
