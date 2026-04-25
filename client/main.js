@@ -37,27 +37,37 @@ const newGameButton = document.querySelector("#newGameButton");
 const shareButton = document.querySelector("#shareButton");
 const revealButton = document.querySelector("#revealButton");
 
+async function getConfig() {
+  const response = await fetch(`${window.location.origin}/api/config`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to load game config. Status: ${response.status}`);
+  }
+
+  return response.json();
+}
+
 async function initDiscordSdk() {
   const isInsideDiscord = new URLSearchParams(window.location.search).has("frame_id");
 
-  if (!isInsideDiscord) {
-    subtitleEl.textContent = "Local preview mode";
-    return;
-  }
-
-  if (!discordClientId) {
-    subtitleEl.textContent = "Missing VITE_DISCORD_CLIENT_ID";
-    return;
-  }
-
-  try {
-    const discordSdk = new DiscordSDK(discordClientId);
-    await discordSdk.ready();
+  if (isInsideDiscord) {
     subtitleEl.textContent = "Running inside Discord";
-  } catch (error) {
-    console.error(error);
-    subtitleEl.textContent = "Discord SDK failed to initialize";
+  } else {
+    subtitleEl.textContent = "Local preview mode";
   }
+}
+
+function storageKey() {
+  return `${STORAGE_PREFIX}:${gameDate}`;
+}
+
+function emptyBoard() {
+  return Array.from({ length: MAX_GUESSES }, () =>
+    Array.from({ length: WORD_LENGTH }, () => ({
+      letter: "",
+      status: "",
+    }))
+  );
 }
 
 function resetState() {
@@ -72,16 +82,19 @@ function resetState() {
 }
 
 function saveState() {
-  localStorage.setItem(storageKey(), JSON.stringify({
-    board,
-    guesses,
-    scores,
-    currentGuess,
-    currentRow,
-    gameOver,
-    keyboardStatus,
-    lastOutcome,
-  }));
+  localStorage.setItem(
+    storageKey(),
+    JSON.stringify({
+      board,
+      guesses,
+      scores,
+      currentGuess,
+      currentRow,
+      gameOver,
+      keyboardStatus,
+      lastOutcome,
+    })
+  );
 }
 
 function loadState() {
@@ -209,7 +222,7 @@ async function submitGuess() {
     return;
   }
 
-  const response = await fetch("/api/guess", {
+  const response = await fetch(`${window.location.origin}/api/guess`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -241,8 +254,10 @@ async function submitGuess() {
     lastOutcome = `Solved in ${currentRow + 1}/${MAX_GUESSES}.`;
   } else if (currentRow + 1 >= MAX_GUESSES) {
     gameOver = true;
-    const answerResponse = await fetch("/api/answer");
+
+    const answerResponse = await fetch(`${window.location.origin}/api/answer`);
     const answerData = await answerResponse.json();
+
     lastOutcome = `Game over. The word was ${answerData.answer}.`;
   } else {
     currentRow += 1;
@@ -269,11 +284,13 @@ function handleKey(key) {
 }
 
 function resultSquares(score) {
-  return score.map((item) => {
-    if (item === "correct") return "🟩";
-    if (item === "present") return "🟨";
-    return "⬛";
-  }).join("");
+  return score
+    .map((item) => {
+      if (item === "correct") return "🟩";
+      if (item === "present") return "🟨";
+      return "⬛";
+    })
+    .join("");
 }
 
 async function copyResult() {
@@ -295,10 +312,12 @@ async function copyResult() {
 }
 
 async function revealAnswer() {
-  const response = await fetch("/api/answer");
+  const response = await fetch(`${window.location.origin}/api/answer`);
   const data = await response.json();
+
   gameOver = true;
   lastOutcome = `The word was ${data.answer}.`;
+
   saveState();
   render();
 }
@@ -326,6 +345,7 @@ revealButton.addEventListener("click", revealAnswer);
 
 async function main() {
   const config = await getConfig();
+
   gameDate = config.date;
   discordClientId = config.discordClientId || "";
 
