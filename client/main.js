@@ -341,5 +341,5 @@ async function main() {
 
 main().catch((error) => {
   console.error(error);
-  setMessage("Failed to start the game.");
+  setMessage(`Failed to start the game: ${error.message}`);
 });
