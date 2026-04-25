@@ -60,25 +60,6 @@ async function initDiscordSdk() {
   }
 }
 
-async function getConfig() {
-  const response = await fetch("/api/config");
-  if (!response.ok) throw new Error("Failed to load game config.");
-  return response.json();
-}
-
-function storageKey() {
-  return `${STORAGE_PREFIX}:${gameDate}`;
-}
-
-function emptyBoard() {
-  return Array.from({ length: MAX_GUESSES }, () =>
-    Array.from({ length: WORD_LENGTH }, () => ({
-      letter: "",
-      status: "",
-    }))
-  );
-}
-
 function resetState() {
   board = emptyBoard();
   guesses = [];
